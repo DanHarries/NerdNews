@@ -14,7 +14,6 @@ namespace NerdNews.Web.Services
     public class ProcessNewsFeedData : IProcessNewsFeedData
     {
         private readonly INewsFeedWrapper _news;
-
         public ProcessNewsFeedData(INewsFeedWrapper news)
         {
             _news = news;
@@ -26,8 +25,7 @@ namespace NerdNews.Web.Services
         public List<ArticleViewModel> NewsFeedToModel()
         {
             var articles = _news.GetNewsFeed();
-            var vm = new List<ArticleViewModel>();
-            
+            var vm = new List<ArticleViewModel>();            
 
             foreach (var article in articles)
             {

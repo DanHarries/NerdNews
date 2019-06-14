@@ -6,11 +6,22 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="App.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="NewsAPI" Version="0.5.0" />
+    <PackageReference Include="NLog" Version="4.6.5" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
 
 
@@ -18,6 +29,18 @@
     <ProjectReference Include="..\NerdNews.Application\NerdNews.Application.csproj" />
     <ProjectReference Include="..\NerdNews.Data\NerdNews.Data.csproj" />
     <ProjectReference Include="..\NerdNews.NewsAPI\NerdNews.NewsAPI.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

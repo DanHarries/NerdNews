@@ -1,0 +1,15 @@
+﻿/*┌────────────────────────────────────────────────┐
+ *│                                                │*
+ *│             --> Emoji Flasher <--              │*
+ *│                   * By Dan *                   │*
+ *│                     v1.0.0                     │*
+ *│                                                │*
+ *└────────────────────────────────────────────────┘*/
+
+my-emoji {
+    font-size: 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}

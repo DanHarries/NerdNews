@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace NerdNews.NewsAPI
 {
@@ -14,17 +16,26 @@ namespace NerdNews.NewsAPI
     /// </summary>
     public class NewsFeedWrapper : INewsFeedWrapper
     {
+        private readonly ILogger<NewsFeedWrapper> _logger;
+
         /// <summary>
         /// Returns a list of Top Technology headlines
         /// </summary>
         /// <returns></returns>
+        /// 
+        public NewsFeedWrapper(ILogger<NewsFeedWrapper> logger)
+        {
+            _logger = logger;
+        }
+
         public List<Article> GetNewsFeed()
         {
-            //TODO: put in config
-            var newsApiClient = new NewsApiClient("2b20c702e5734ccfac06de9fcd050cad");
+            var apiKey = ConfigurationManager.AppSettings["newsAPIKey"];            
+            var newsApiClient = new NewsApiClient(apiKey);
 
             try
             {
+                _logger.LogInformation("Getting news feed from api");
                 var articlesResponse = newsApiClient.GetTopHeadlines(new TopHeadlinesRequest
                 {
                     PageSize = 10,
@@ -32,15 +43,24 @@ namespace NerdNews.NewsAPI
                     Language = Languages.EN,
                 });
 
-                return articlesResponse.Articles;
+                if (articlesResponse.Status == Statuses.Ok)
+                {
+                    _logger.LogInformation("Status Ok, returning model");
+                    return articlesResponse.Articles;
+                }
+                else
+                {
+                    throw new Exception();
+                }
 
             }
+
             catch (Exception ex)
             {
-                //TODO: Log the error 
-                throw;
+                _logger.LogError($"Error getting news feed {ex.Message}");
+                throw ex.InnerException;
             }
-                       
+
 
         }
     }
