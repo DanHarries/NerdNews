@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdNews.Web", "NerdNews.Web\NerdNews.Web.csproj", "{AD96C276-961B-42E1-AB7A-E23B169D9C56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdNews.Data", "NerdNews.Data\NerdNews.Data.csproj", "{5DD01573-C3FF-4476-846B-735123B234A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD96C276-961B-42E1-AB7A-E23B169D9C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD96C276-961B-42E1-AB7A-E23B169D9C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD96C276-961B-42E1-AB7A-E23B169D9C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD96C276-961B-42E1-AB7A-E23B169D9C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD01573-C3FF-4476-846B-735123B234A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD01573-C3FF-4476-846B-735123B234A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD01573-C3FF-4476-846B-735123B234A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD01573-C3FF-4476-846B-735123B234A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7999C31B-5570-4A6F-995C-CFBB50777BF4}
+	EndGlobalSection
+EndGlobal
