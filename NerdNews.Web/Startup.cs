@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using NerdNews.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NerdNews.NewsAPI;
+using NerdNews.Web.Services;
 
 namespace NerdNews.Web
 {
@@ -27,13 +29,7 @@ namespace NerdNews.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+        {            
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -42,6 +38,10 @@ namespace NerdNews.Web
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Register DI methods below
+            services.AddTransient<INewsFeedWrapper, NewsFeedWrapper>();
+            services.AddTransient<IProcessNewsFeedData, ProcessNewsFeedData>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
