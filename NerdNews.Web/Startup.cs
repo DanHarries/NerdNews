@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NerdNews.NewsAPI;
 using NerdNews.Web.Services;
+using NerdNews.Application;
 
 namespace NerdNews.Web
 {
@@ -42,6 +43,7 @@ namespace NerdNews.Web
             // Register DI methods below
             services.AddTransient<INewsFeedWrapper, NewsFeedWrapper>();
             services.AddTransient<IProcessNewsFeedData, ProcessNewsFeedData>();
+            services.AddTransient<IProcessData, ProcessData>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

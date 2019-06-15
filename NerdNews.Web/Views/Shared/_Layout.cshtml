@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Nerd-News</title>
 
-
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" integrity="sha384-i1LQnF23gykqWXg6jxC2ZbCbUMxyw5gLZY6UiUS98LYV5unm8GWmfkIS6jqJfb4E" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/emoji-flasher.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
 
+    <link rel="stylesheet" href="~/css/site.css" />
 
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/emoji-flasher.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>    
+    <script src="~/js/site.js"></script>
 </head>
 <body>
     <header>
@@ -52,12 +58,6 @@
             &copy; 2019 - Nerd News - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
-
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/emoji-flasher.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

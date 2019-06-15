@@ -22,14 +22,14 @@ namespace NerdNews.Web.Services
         /// DTO method from API to view model
         /// </summary>
         /// <returns></returns>
-        public List<ArticleViewModel> NewsFeedToModel()
+        public List<ArticleModel> NewsFeedToModel()
         {
             var articles = _news.GetNewsFeed();
-            var vm = new List<ArticleViewModel>();            
+            var vm = new List<ArticleModel>();            
 
             foreach (var article in articles)
             {
-                vm.Add(new ArticleViewModel
+                vm.Add(new ArticleModel
                 {      
                     Id = article.Source.Id,
                     Name = article.Source.Name,

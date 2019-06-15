@@ -6,6 +6,6 @@ namespace NerdNews.Web.Services
 {
     public interface IProcessNewsFeedData
     {
-        List<ArticleViewModel> NewsFeedToModel();
+        List<ArticleModel> NewsFeedToModel();
     }
 }

@@ -1,46 +1,103 @@
-﻿@model List<ArticleViewModel>
+﻿@model HomePageViewModel
 
 @{
     ViewData["Title"] = "News Feed";
 }
-    <br />
-    <hr />
-    <div class="text-center">
-        <h1>Welcome to Nerd News! </h1> 
-        
-        <p>Here is some of the top tech news ...  </p>
-    </div><hr />
-    <br /><br />
-@foreach (var article in Model)
+<br />
+<hr />
+
+<div class="text-center">
+    <h1>Welcome to Nerd News! </h1>
+    <p>Here is some of the top tech news ...  </p>
+</div>
+
+<hr />
+<br />
+<br />
+
+@foreach (var article in Model.ArticleModel)
 {
-    <div class="card">
+<div class="card">
 
-        <div class="card-header">
-            <span class="badge badge-pill badge-primary float-right m-2 mr-2">@article.Name</span>
-            <h4 class="card-title m-1">@article.Title</h4>
-        </div>
+    <div class="card-header">
+        <span class="badge badge-pill badge-primary float-right m-2 mr-2 font-initial">@article.Name</span>
+        <h2 class="card-title m-2">@article.Title</h2>
+    </div>
 
-        <div class="card-body">
-            <img class="news-img" src="@article.UrlToImage" alt="@article.Name" />
-            <br /><hr />
-            <p class="card-text">
-                @article.Description
-            </p>
+    <div class="card-body">
+        <img class="news-img" src="@article.UrlToImage" alt="@article.Name" />
+        <br /><hr />
+        <p class="card-text">
+            @article.Description
+        </p>
 
-            <hr />
+        <hr />
 
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a href="" class="btn btn-secondary text-white">Reply</a>
-            }
+        <button type="button" id="add-comment-@article.Id" class="btn btn-primary text-white">Add Comment</button>
 
+        <a href="@article.Url" target="_blank" class="btn btn-secondary ">
+            View On Site
+        </a>
 
-            <a href="@article.Url" target="_blank" class="btn btn-primary ">
-                View On Site
-            </a>
+        <button id="view-comments-btn-@article.Id" type="button" class="btn btn-outline-primary float-right">View Comments</button>
+    </div>
+
+    <div class="hide view-comments-@article.Id card-footer">
+        <h5><i class="fas fa-comments"></i> Comments</h5>
+        @await Component.InvokeAsync("Comments", new { postId = article.Id })
+
+    </div>
+
+        <!--Add Comment Form-->
+        <div class="hide comment-input-@article.Id card-footer">
+            <form asp-action="AddCommment" asp-controller="Home" class="form-group">
+                <input hidden asp-for="NewsPostId" value="@article.Id" />
+                <label for="">Add Comment</label>
+                <textarea required asp-for="Comment" style="resize:none"
+                          class="form-control"
+                          placeholder="Type comment in here"
+                          id="" rows="3"></textarea>
+                <span asp-validation-for="Comment"></span>
+                <button class="btn btn-primary float-right mt-2" type="submit">Add</button>
+            </form>
         </div>
     </div>
-    <br/>
-}
+    <br />
+
+    <script>
+    $(function () {
+        $('.comment-input-@article.Id').hide();
+
+        // Check to see if user is logged in to comment
+        $('#add-comment-@article.Id').click(function () {
+            $.get("Home/CheckAuthorised",
+                function (data) {
+                    var isAuth = data.isAuth;
+                    if (!isAuth) {
+                        //Not authorized show toast
+                        toastr.warning('Please login to comment', 'Warning');
+                    } else {
+                        // Show comment panel
+                        $('.comment-input-@article.Id').toggle();
+                    }
+                });
+        });
+
+        $('#view-comments-btn-@article.Id').click(function () {
+                showComments('@article.Id');
+        })
+
+        // Toggle Button and Text
+        function showComments(id) {
+            
+            var showComment = $(`#view-comments-btn-${id}`);
+            showComment.text().includes('View Comments') ? showComment.text('Hide Comments') : showComment.text('View Comments')
+            $(`.view-comments-${id}`).toggle();
+        }
+
+    });
+    </script>
+
+    }
 
 

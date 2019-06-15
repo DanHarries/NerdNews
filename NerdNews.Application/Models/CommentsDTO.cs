@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace NerdNews.Data.DataModels
+namespace NerdNews.Application.Models
 {
-    public class Comments
+    public class CommentsDTO
     {
         public int Id { get; set; }
         public string PostId { get; set; }
