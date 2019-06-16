@@ -12,5 +12,6 @@ namespace NerdNews.Web.Models
         public string Message { get; set; }
         public string Author { get; set; }
         public DateTime CommentDateTime { get; set; }
+        public List<CommentHistoryModel> CommentHistory { get; set; }
     }
 }

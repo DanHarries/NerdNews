@@ -1,5 +1,7 @@
 ﻿$(function () {
 
+    $('[data-toggle="tooltip"]').tooltip()
+
     var urlParams = new URLSearchParams(window.location.search);
     var queryComment = urlParams.get('comment');
     var queryPost = urlParams.get('post');

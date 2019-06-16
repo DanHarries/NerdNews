@@ -77,6 +77,8 @@ namespace NerdNews.Application
         {
             try
             {
+                // Save comment history
+                SaveCommentHistory(id);
                 // Edit comment in db
                 var editComment = _db.Comments.Find(Convert.ToInt32(id));
                 editComment.Message = comment;
@@ -90,6 +92,48 @@ namespace NerdNews.Application
                 return false;
             }
             
+        }
+
+        public void SaveCommentHistory(string id)
+        {
+            try
+            {
+                var commentHistory = new CommentHistory()
+                {
+                    CommentId = id,
+                    EditDateTime = DateTime.Now,
+                };
+
+                _db.CommentHistory.Add(commentHistory);
+                _db.SaveChanges();
+                _logger.LogInformation("Successfully saved comment history");
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"Error saveing comment history {e.Message}");
+                throw new Exception();
+            }
+            
+
+
+        }
+
+        public async Task<List<CommentHistoryDTO>> GetCommentHistory(string id)
+        {
+            var commentHistoryDTO = new List<CommentHistoryDTO>();
+            var getCommentHistory = await _db.CommentHistory.Where(x => x.CommentId == id).ToListAsync();
+
+            foreach (var history in getCommentHistory)
+            {
+                commentHistoryDTO.Add(new CommentHistoryDTO()
+                {
+                    Id = history.Id,
+                    CommentHistoryDateTime = history.EditDateTime
+                });
+            }
+
+            return commentHistoryDTO;
+
         }
     }
 }

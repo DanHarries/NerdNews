@@ -11,5 +11,7 @@ namespace NerdNews.Application
         Task<bool> SaveCommentToDb(string postId, string comment, string author);
         Task<List<CommentsDTO>> GetComments(string postId);
         bool EditComment(string postId, string comment);
+
+        Task <List<CommentHistoryDTO>> GetCommentHistory(string id);
     }
 }
