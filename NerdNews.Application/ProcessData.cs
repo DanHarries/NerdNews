@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace NerdNews.Application
 {
-
-    
+    /// <summary>
+    /// Process data in here to keep db calls off the controller
+    /// </summary>    
     public class ProcessData : IProcessData
     {
         private readonly ApplicationDbContext _db;
@@ -43,7 +44,7 @@ namespace NerdNews.Application
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Error {e.Message}");
+                _logger.LogError($"Error: {e.Message}");
                 return false;
             }
             
@@ -70,6 +71,25 @@ namespace NerdNews.Application
 
             return dto;
 
+        }
+
+        public bool EditComment(string id, string comment)
+        {
+            try
+            {
+                // Edit comment in db
+                var editComment = _db.Comments.Find(Convert.ToInt32(id));
+                editComment.Message = comment;
+                _db.SaveChangesAsync();
+                _logger.LogInformation("Successfully edited comment");
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error: {e.Message}");
+                return false;
+            }
+            
         }
     }
 }

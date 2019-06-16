@@ -18,7 +18,7 @@ namespace NerdNews.Web.Controllers
         private readonly IProcessNewsFeedData _model;        
         private readonly ILogger<HomeController> _logger;
         private readonly IProcessData _process;
-
+      
         public HomeController(IProcessNewsFeedData model, ILogger<HomeController> logger, IProcessData process)
         {            
             _model = model;
@@ -55,12 +55,13 @@ namespace NerdNews.Web.Controllers
         {            
             var user = User.Identity.Name;
             _logger.LogInformation($"{user} has added a comment");
+
             // Save to Db
             var saveToDb = await _process.SaveCommentToDb(model.NewsPostId, model.Comment, user);
 
             if (saveToDb)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {comment = "new", post = model.NewsPostId });
             }
             else
             {
@@ -75,12 +76,12 @@ namespace NerdNews.Web.Controllers
             
         }
 
-        public IActionResult EditPost(string newEditPost, int postIndex, string postId )
+        public IActionResult EditPost(string newEditPost, string id)
         {
             _logger.LogInformation($"{User.Identity.Name} is updating a comment");
 
             // Update in the DB
-
+            var editToDb = _process.EditComment(id, newEditPost);
 
 
             return RedirectToAction("Index", "Home");

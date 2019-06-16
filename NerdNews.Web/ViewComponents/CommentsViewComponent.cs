@@ -25,6 +25,7 @@ namespace NerdNews.Web.ViewComponents
             {
                 model.Add(new CommentsViewModel()
                 { 
+                    Id = comment.Id,
                     PostId = postId,
                     Author = comment.Author,
                     Message = comment.Message,

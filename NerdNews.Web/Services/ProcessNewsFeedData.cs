@@ -29,9 +29,12 @@ namespace NerdNews.Web.Services
 
             foreach (var article in articles)
             {
+                // Having to use time as an id due to the API not supplying any type of UID
+                var id = article.PublishedAt.Value.TimeOfDay.ToString().Substring(0, 5).Trim().Replace(':', '-');
+
                 vm.Add(new ArticleModel
-                {      
-                    Id = article.Source.Id,
+                {                         
+                    Id = id,
                     Name = article.Source.Name,
                     Author = article.Author,
                     Description = article.Description,
