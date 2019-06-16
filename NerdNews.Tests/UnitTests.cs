@@ -4,6 +4,8 @@ namespace Tests
 {
     public class Tests
     {
+        //TODO: Set up in memory dbcontext
+
         [SetUp]
         public void Setup()
         {
