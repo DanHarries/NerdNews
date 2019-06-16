@@ -37,6 +37,14 @@ namespace NerdNews.Web.Controllers
 
             return View(model);
         }
+
+        public IActionResult CommentCount(string postId)
+        {
+            // Get comment count 
+            var getCount = _process.GetCommentCount(postId);
+
+            return Json(new {count = getCount });
+        }
            
         [HttpGet]
         public IActionResult CheckAuthorised()

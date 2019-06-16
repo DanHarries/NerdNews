@@ -52,24 +52,33 @@ namespace NerdNews.Application
 
         public async Task<List<CommentsDTO>> GetComments(string postId)
         {
-            var dto = new List<CommentsDTO>();
-
-            var getComments = await _db.Comments.Where(x => x.PostId == postId).ToListAsync();
-
-            foreach (var comment in getComments)
+            try
             {
-                dto.Add(new CommentsDTO()
+                var dto = new List<CommentsDTO>();
+
+                var getComments = await _db.Comments.Where(x => x.PostId == postId).ToListAsync();
+
+                foreach (var comment in getComments)
                 {
-                    Id = comment.Id,
-                    PostId = comment.PostId,
-                    Author = comment.Author,
-                    Message = comment.Message,
-                    CommentDateTime = comment.CommentDateTime
+                    dto.Add(new CommentsDTO()
+                    {
+                        Id = comment.Id,
+                        PostId = comment.PostId,
+                        Author = comment.Author,
+                        Message = comment.Message,
+                        CommentDateTime = comment.CommentDateTime
 
-                });
+                    });
+                }
+                _logger.LogInformation("Successfully got comments");
+                return dto;
             }
-
-            return dto;
+            catch (Exception e)
+            {
+                _logger.LogError($"Error: {e.Message}");
+                throw new Exception();
+            }
+            
 
         }
 
@@ -79,6 +88,7 @@ namespace NerdNews.Application
             {
                 // Save comment history
                 SaveCommentHistory(id);
+
                 // Edit comment in db
                 var editComment = _db.Comments.Find(Convert.ToInt32(id));
                 editComment.Message = comment;
@@ -110,7 +120,7 @@ namespace NerdNews.Application
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Error saving comment history {e.Message}");
+                _logger.LogInformation($"Error saving comment history - {e.Message}");
                 throw new Exception();
             }
             
@@ -120,19 +130,28 @@ namespace NerdNews.Application
 
         public async Task<List<CommentHistoryDTO>> GetCommentHistory(string id)
         {
-            var commentHistoryDTO = new List<CommentHistoryDTO>();
-            var getCommentHistory = await _db.CommentHistory.Where(x => x.CommentId == id).ToListAsync();
-
-            foreach (var history in getCommentHistory)
+            try
             {
-                commentHistoryDTO.Add(new CommentHistoryDTO()
-                {
-                    Id = history.Id,
-                    CommentHistoryDateTime = history.EditDateTime
-                });
-            }
+                var commentHistoryDTO = new List<CommentHistoryDTO>();
+                var getCommentHistory = await _db.CommentHistory.Where(x => x.CommentId == id).ToListAsync();
 
-            return commentHistoryDTO;
+                foreach (var history in getCommentHistory)
+                {
+                    commentHistoryDTO.Add(new CommentHistoryDTO()
+                    {
+                        Id = history.Id,
+                        CommentHistoryDateTime = history.EditDateTime
+                    });
+                }
+                _logger.LogInformation($"successfully got comment history");
+                return commentHistoryDTO;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error getting comment history - {e.Message}");
+                throw new Exception();
+            }
+            
 
         }
 
@@ -149,9 +168,25 @@ namespace NerdNews.Application
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Error deleting comment {e.Message}");
+                _logger.LogError($"Error deleting comment - {e.Message}");
                 return false;
             }
+        }
+
+        public int GetCommentCount(string id)
+        {
+            try
+            {
+                var count =  _db.Comments.Where(x => x.PostId == id).Count();
+                _logger.LogInformation("Successfully got comment count");
+                return count;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error getting comment count - {e.Message}");
+                throw new Exception();
+            }
+
         }
     }
 }

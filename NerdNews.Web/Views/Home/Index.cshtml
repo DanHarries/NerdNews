@@ -17,6 +17,7 @@
 
 @foreach (var article in Model.ArticleModel)
 {
+    var id = article.Id;
 <div class="card">
 
     <div class="card-header">
@@ -33,25 +34,30 @@
 
         <hr />
 
-        <button type="button" id="add-comment-@article.Id" class="btn btn-primary text-white">Add Comment</button>
+        <button type="button" id="add-comment-@id" class="btn btn-primary text-white">Add Comment</button>
 
         <a href="@article.Url" target="_blank" class="btn btn-secondary ">
             View On Site
         </a>
+        <span id="comment-count-@id" class="btn btn-outline-primary float-right"></span>
 
-        <button id="view-comments-btn-@article.Id" type="button" class="btn btn-outline-primary float-right">View Comments</button>
+        <button id="view-comments-btn-@id" type="button" class="btn btn-outline-primary float-right">
+            View Comments
+        </button>
+
+
     </div>
 
-    <div class="hide view-comments-@article.Id card-footer">
+    <div class="hide view-comments-@id card-footer">
         <h5><i class="fas fa-comments"></i> Comments</h5>
-        @await Component.InvokeAsync("Comments", new { postId = article.Id })
+        @await Component.InvokeAsync("Comments", new { postId = id })
 
     </div>
 
         <!--Add Comment Form-->
-        <div class="hide comment-input-@article.Id card-footer">
+        <div class="hide comment-input-@id card-footer">
             <form asp-action="AddCommment" asp-controller="Home" class="form-group">
-                <input hidden asp-for="NewsPostId" value="@article.Id" />
+                <input hidden asp-for="NewsPostId" value="@id" />
                 <label for="">Add Comment</label>
                 <textarea required asp-for="Comment" style="resize:none"
                           class="form-control"
@@ -65,11 +71,17 @@
     <br />
 
     <script>
-    $(function () {
-        $('.comment-input-@article.Id').hide();
+        $(function () {
+
+        $.get("Home/CommentCount", { postId: '@id'  }, function (data) {
+            var count = data.count;
+            $('#comment-count-@id').text(count);
+        });
+
+        $('.comment-input-@id').hide();
 
         // Check to see if user is logged in to comment
-        $('#add-comment-@article.Id').click(function () {
+        $('#add-comment-@id').click(function () {
             $.get("Home/CheckAuthorised",
                 function (data) {
                     var isAuth = data.isAuth;
@@ -78,22 +90,23 @@
                         toastr.warning('Please login to comment', 'Warning');
                     } else {
                         // Show comment panel
-                        $('.comment-input-@article.Id').toggle();
+                        $('.comment-input-@id').toggle();
                     }
                 });
         });
 
-        $('#view-comments-btn-@article.Id').click(function () {
-                showComments('@article.Id');
+        $('#view-comments-btn-@id').click(function () {
+                showComments('@id');
         })
 
         // Toggle Button and Text
         function showComments(id) {
-            
+
             var showComment = $(`#view-comments-btn-${id}`);
             showComment.text().includes('View Comments') ? showComment.text('Hide Comments') : showComment.text('View Comments')
             $(`.view-comments-${id}`).toggle();
         }
+
 
     });
     </script>

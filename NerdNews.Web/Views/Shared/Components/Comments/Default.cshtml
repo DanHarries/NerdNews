@@ -2,9 +2,11 @@
 <!-- Comments -->
 @if (Model.Count != 0)
 {
+    
     var i = 0;
     @foreach (var comment in Model)
     {
+        var id = comment.Id;
         <hr />
         <div class="comments">
             <div class="media">
@@ -13,7 +15,7 @@
                     @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.Author)
                     {
                         <button type="button"
-                                id="delete-post-@comment.Id"
+                                id="delete-post-@id"
                                 class="btn btn-link edit-text float-right text-muted ">
                             <i class="far fa-trash-alt"
                                data-toggle="tooltip"
@@ -22,7 +24,7 @@
                         </button>
 
                         <button type="button"
-                                id="edit-post-@comment.Id"
+                                id="edit-post-@id"
                                 class="btn btn-link edit-text float-right text-muted ">
                             <i class="far fa-edit"
                                data-toggle="tooltip"
@@ -70,13 +72,13 @@
 
             <script>
                 $(function () {
-                    $('#edit-post-@comment.Id').click(function () {
-                        $('.edit-comment-input-@comment.Id').toggle();
+                    $('#edit-post-@id').click(function () {
+                        $('.edit-comment-input-@id').toggle();
                     });
 
-                    $('#edit-post-form-btn-@comment.Id').click(function () {
-                        var newEditPost = $('#post-to-edit-@comment.Id').val();
-                        var id = '@comment.Id';
+                    $('#edit-post-form-btn-@id').click(function () {
+                        var newEditPost = $('#post-to-edit-@id').val();
+                        var id = '@id';
                         $.post("Home/EditPost",
                             {
                                 newEditPost: newEditPost,
@@ -90,8 +92,8 @@
 
                     });
 
-                    $('#delete-post-@comment.Id').click(function () {
-                        var id = '@comment.Id';
+                    $('#delete-post-@id').click(function () {
+                        var id = '@id';
 
                         $.post("Home/DeletePost",
                             {                                
@@ -111,16 +113,16 @@
             </script>
 
             <!-- Edit Comment -->
-            <div class="hide edit-comment edit-comment-input-@comment.Id card-footer">
+            <div class="hide edit-comment edit-comment-input-@id card-footer">
 
                 <div id="edit-post-form" class="form-group">
 
                     <label>Edit Comment</label>
-                    <textarea id="post-to-edit-@comment.Id" style="resize:none"
+                    <textarea id="post-to-edit-@id" style="resize:none"
                               class="form-control"
                               placeholder="Type comment in here"
                               rows="3">@comment.Message</textarea>
-                    <button id="edit-post-form-btn-@comment.Id" class="btn btn-secondary float-right mt-2" type="submit">Save</button>
+                    <button id="edit-post-form-btn-@id" class="btn btn-secondary float-right mt-2" type="submit">Save</button>
                 </div>
 
             </div>
@@ -130,7 +132,6 @@
 }
 else
 {
-
     <div>No comments here, check back later!</div>
 }
 
