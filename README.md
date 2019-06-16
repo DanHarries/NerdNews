@@ -12,6 +12,7 @@
 - [News API](https://newsapi.org/)
 - [Emoji Flasher](https://github.com/DanHarries/Emoji-Flasher)
 - [HoldOn.js](https://sdkcarlos.github.io/sites/holdon.html)
+- [Toastr](https://codeseven.github.io/toastr/demo.html)
 
 #### To Do:
 - [ ] Unit Tests
