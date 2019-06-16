@@ -18,8 +18,6 @@ namespace NerdNews.Web.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync(string postId)
         {
-
-
             var getComments = await _process.GetComments(postId);
             var model = new List<CommentsViewModel>();
 

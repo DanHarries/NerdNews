@@ -18,41 +18,40 @@
 @foreach (var article in Model.ArticleModel)
 {
     var id = article.Id;
-<div class="card">
+    <div class="card">
 
-    <div class="card-header">
-        <span class="badge badge-pill badge-primary float-right m-2 mr-2 font-initial">@article.Name</span>
-        <h2 class="card-title m-2">@article.Title</h2>
-    </div>
+        <div class="card-header">
+            <span class="badge badge-pill badge-primary float-right m-2 mr-2 font-initial">@article.Name</span>
+            <h2 class="card-title m-2">@article.Title</h2>
+        </div>
 
-    <div class="card-body">
-        <img class="news-img" src="@article.UrlToImage" alt="@article.Name" />
-        <br /><hr />
-        <p class="card-text">
-            @article.Description
-        </p>
+        <div class="card-body">
+            <img class="news-img" src="@article.UrlToImage" alt="@article.Name" />
+            <br /><hr />
+            <p class="card-text">
+                @article.Description
+            </p>
 
-        <hr />
+            <hr />
 
-        <button type="button" id="add-comment-@id" class="btn btn-primary text-white">Add Comment</button>
+            <button type="button" id="add-comment-@id" class="btn btn-primary text-white">Add Comment</button>
 
-        <a href="@article.Url" target="_blank" class="btn btn-secondary ">
-            View On Site
-        </a>
-        <span id="comment-count-@id" class="btn btn-outline-primary float-right"></span>
+            <a href="@article.Url" target="_blank" class="btn btn-secondary ">
+                View On Site
+            </a>
+            <span id="comment-count-@id" class="btn btn-outline-primary float-right"></span>
 
-        <button id="view-comments-btn-@id" type="button" class="btn btn-outline-primary float-right">
-            View Comments
-        </button>
+            <button id="view-comments-btn-@id" type="button" class="btn btn-outline-primary float-right">
+                View Comments
+            </button>
 
+        </div>
 
-    </div>
+        <div class="hide view-comments-@id card-footer">
+            <h5><i class="fas fa-comments"></i> Comments</h5>
+            @await Component.InvokeAsync("Comments", new { postId = id })
 
-    <div class="hide view-comments-@id card-footer">
-        <h5><i class="fas fa-comments"></i> Comments</h5>
-        @await Component.InvokeAsync("Comments", new { postId = id })
-
-    </div>
+        </div>
 
         <!--Add Comment Form-->
         <div class="hide comment-input-@id card-footer">
@@ -81,7 +80,8 @@
         $('.comment-input-@id').hide();
 
         // Check to see if user is logged in to comment
-        $('#add-comment-@id').click(function () {
+            $('#add-comment-@id').click(function () {
+
             $.get("Home/CheckAuthorised",
                 function (data) {
                     var isAuth = data.isAuth;
@@ -111,6 +111,6 @@
     });
     </script>
 
-    }
+}
 
 

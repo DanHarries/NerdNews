@@ -92,7 +92,7 @@ namespace NerdNews.Application
                 // Edit comment in db
                 var editComment = _db.Comments.Find(Convert.ToInt32(id));
                 editComment.Message = comment;
-                _db.SaveChangesAsync();
+                _db.SaveChanges();
                 _logger.LogInformation("Successfully edited comment");
                 return true;
             }
@@ -122,9 +122,7 @@ namespace NerdNews.Application
             {
                 _logger.LogInformation($"Error saving comment history - {e.Message}");
                 throw new Exception();
-            }
-            
-
+            }   
 
         }
 

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdNews.Web", "NerdNews.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdNews.Data", "NerdNews.Data\NerdNews.Data.csproj", "{5DD01573-C3FF-4476-846B-735123B234A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdNews.Application", "NerdNews.Application\NerdNews.Application.csproj", "{5D4AD02A-CD0B-49C0-B5FD-AAC2E5C8B64D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdNews.Application", "NerdNews.Application\NerdNews.Application.csproj", "{5D4AD02A-CD0B-49C0-B5FD-AAC2E5C8B64D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdNews.NewsAPI", "NerdNews.NewsAPI\NerdNews.NewsAPI.csproj", "{67F80092-941E-467B-B6D0-8AA004C8FE39}"
 EndProject

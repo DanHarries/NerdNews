@@ -77,8 +77,12 @@
                     });
 
                     $('#edit-post-form-btn-@id').click(function () {
+        
                         var newEditPost = $('#post-to-edit-@id').val();
                         var id = '@id';
+                        HoldOn.open({
+                            theme: "sk-cube-grid"
+                        });
                         $.post("Home/EditPost",
                             {
                                 newEditPost: newEditPost,
@@ -93,6 +97,10 @@
                     });
 
                     $('#delete-post-@id').click(function () {
+                        HoldOn.open({
+                            theme: "sk-cube-grid"
+                        });
+
                         var id = '@id';
 
                         $.post("Home/DeletePost",
