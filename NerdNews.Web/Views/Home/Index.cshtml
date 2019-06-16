@@ -55,7 +55,7 @@
 
         <!--Add Comment Form-->
         <div class="hide comment-input-@id card-footer">
-            <form asp-action="AddCommment" asp-controller="Home" class="form-group">
+            <form id="add-comment-form-@id" asp-action="AddCommment" asp-controller="Home" class="form-group">
                 <input hidden asp-for="NewsPostId" value="@id" />
                 <label for="">Add Comment</label>
                 <textarea required asp-for="Comment" style="resize:none"
@@ -71,6 +71,12 @@
 
     <script>
         $(function () {
+                        
+            $('#add-comment-form-@id').submit(function () {
+                HoldOn.open({
+                    theme: "sk-cube-grid"
+                });
+            });
 
         $.get("Home/CommentCount", { postId: '@id'  }, function (data) {
             var count = data.count;
