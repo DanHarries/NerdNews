@@ -110,7 +110,7 @@ namespace NerdNews.Application
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Error saveing comment history {e.Message}");
+                _logger.LogInformation($"Error saving comment history {e.Message}");
                 throw new Exception();
             }
             
@@ -134,6 +134,24 @@ namespace NerdNews.Application
 
             return commentHistoryDTO;
 
+        }
+
+        public bool DeleteComment(string id)
+        {
+            try
+            {
+                var delete = _db.Comments.Find(Convert.ToInt32(id));
+                _db.Comments.Remove(delete);
+                _db.SaveChanges();
+
+                _logger.LogInformation("Successfully deleted comment");
+                return true;
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation($"Error deleting comment {e.Message}");
+                return false;
+            }
         }
     }
 }

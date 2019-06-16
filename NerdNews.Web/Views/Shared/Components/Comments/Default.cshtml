@@ -12,15 +12,6 @@
 
                     @if (User.Identity.IsAuthenticated && User.Identity.Name == comment.Author)
                     {
-
-                        <button type="button"
-                                id="edit-post-@comment.Id"
-                                class="btn btn-link edit-text float-right text-muted ">
-                            <i class="far fa-edit"
-                               data-toggle="tooltip"
-                               data-placement="top"
-                               title="Edit"></i>
-                        </button>
                         <button type="button"
                                 id="delete-post-@comment.Id"
                                 class="btn btn-link edit-text float-right text-muted ">
@@ -30,33 +21,43 @@
                                title="Delete"></i>
                         </button>
 
+                        <button type="button"
+                                id="edit-post-@comment.Id"
+                                class="btn btn-link edit-text float-right text-muted ">
+                            <i class="far fa-edit"
+                               data-toggle="tooltip"
+                               data-placement="top"
+                               title="Edit"></i>
+                        </button>
+
+
                     }
 
                     <p class="mb-1 font-weight-light comment-font">
                         <i class="fas fa-quote-left"></i>
                         &nbsp;&nbsp; @comment.Message
-                        @if(comment.CommentHistory.Count > 0)
+                        @if (comment.CommentHistory.Count > 0)
                         {
-                            <span class="text-muted">- (edited)</span> 
+                            <span class="text-muted">- (edited)</span>
                         }
                     </p>
                     <span class="font-weight-bold">
                         <i class="far fa-user"></i>
                         &nbsp;&nbsp; @comment.Author
-                    </span> 
+                    </span>
                     <footer>
                         <span class="font-small text-monospace text-muted">
                             <i class="far fa-clock"></i>
                             &nbsp;&nbsp;Posted at @comment.CommentDateTime
 
                             @foreach (var item in comment.CommentHistory)
-                            { 
+                            {
                                 @if (item.CommentHistoryDateTime != null)
                                 {
-                                    <br/>
+                                    <br />
                                     <span>
                                         <i class="fas fa-history"></i>&nbsp;&nbsp;
-                                        Edited at @item.CommentHistoryDateTime 
+                                        Edited at @item.CommentHistoryDateTime
                                     </span>
                                 }
                             }
@@ -88,6 +89,23 @@
                             });
 
                     });
+
+                    $('#delete-post-@comment.Id').click(function () {
+                        var id = '@comment.Id';
+
+                        $.post("Home/DeletePost",
+                            {                                
+                                id: id
+
+                            }).then(function () {
+                                sessionStorage.setItem('type','delete');
+                                sessionStorage.setItem('postDeleted','@comment.PostId');
+                                location.reload();
+                            });
+
+                    });
+
+
 
                 });
             </script>

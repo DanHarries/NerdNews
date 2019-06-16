@@ -13,5 +13,6 @@ namespace NerdNews.Application
         bool EditComment(string postId, string comment);
 
         Task <List<CommentHistoryDTO>> GetCommentHistory(string id);
+        bool DeleteComment(string id);
     }
 }

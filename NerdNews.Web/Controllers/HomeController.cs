@@ -82,17 +82,46 @@ namespace NerdNews.Web.Controllers
 
             // Update in the DB
             var editToDb = _process.EditComment(id, newEditPost);
+            if(editToDb)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var error = new ErrorViewModel()
+                {
+                    ErrorMessage = "There was an issue editing your comment"
+                };
+
+                return View("Error", error);
+            }
 
 
-            return RedirectToAction("Index", "Home");
+           
         }
 
+        public IActionResult DeletePost(string id)
+        {
+            // Delete from db
+            var delete = _process.DeleteComment(id);
+            if (delete)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var error = new ErrorViewModel()
+                {
+                    ErrorMessage = "There was an issue deleting your comment"
+                };
 
-
-      
+                return View("Error", error);
+            }
+        }
+                             
         public IActionResult Error()
         {
-            _logger.LogError("Error loading home page");
+            _logger.LogError("Error loading news feed page");
 
             return View(new ErrorViewModel { ErrorMessage = "Ooops Something went wrong" });
         }
