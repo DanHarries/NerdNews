@@ -70,6 +70,7 @@ namespace NerdNews.Application
 
                     });
                 }
+
                 _logger.LogInformation("Successfully got comments");
                 return dto;
             }
@@ -141,6 +142,7 @@ namespace NerdNews.Application
                         CommentHistoryDateTime = history.EditDateTime
                     });
                 }
+
                 _logger.LogInformation($"successfully got comment history");
                 return commentHistoryDTO;
             }

@@ -16,7 +16,7 @@ namespace NerdNews.Data
 
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<CommentHistory> CommentHistory { get; set; }
-        public virtual DbSet<Reply> Replies { get; set; }
+     
     }
 
    
