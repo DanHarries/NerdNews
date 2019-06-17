@@ -34,11 +34,6 @@
 
 
   <ItemGroup>
-    <Folder Include="logs\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
