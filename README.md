@@ -14,5 +14,3 @@
 - [HoldOn.js](https://sdkcarlos.github.io/sites/holdon.html)
 - [Toastr](https://codeseven.github.io/toastr/demo.html)
 
-#### To Do:
-- [ ] Unit Tests
