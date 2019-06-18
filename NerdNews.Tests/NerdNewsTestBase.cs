@@ -17,6 +17,52 @@ namespace NerdNews.Tests
 
             _context = new ApplicationDbContext(options);
 
+            SaveCommentTestData();
+
+            SaveCommentHistoryTestData();
+
+        }
+         public void Dispose()
+         {
+            _context.Database.EnsureDeleted();
+
+            _context.Dispose();
+         }
+
+        private void SaveCommentHistoryTestData()
+        {
+            var addCommentHistory = new List<CommentHistory>();
+
+            addCommentHistory.Add(
+                new CommentHistory()
+                {
+                    Id = 1,
+                    CommentId = "1",
+                    EditDateTime = DateTime.Now,
+                    MessageEdit = null
+                });
+
+            addCommentHistory.Add(
+                new CommentHistory()
+                {
+                    Id = 2,
+                    CommentId = "2",
+                    EditDateTime = DateTime.Now.AddMinutes(10),
+                    MessageEdit = null
+                });
+
+
+            _context.CommentHistory.AddRange(addCommentHistory);
+
+            _context.SaveChanges();
+
+            _context.Database.EnsureCreated();
+        }
+
+       
+
+        public void SaveCommentTestData()
+        {
             var addDate = new List<Comments>();
 
             addDate.Add(
@@ -24,7 +70,7 @@ namespace NerdNews.Tests
                 {
                     Id = 1,
                     Author = "Dan",
-                    CommentDateTime = DateTime.Now,
+                    CommentDateTime = Convert.ToDateTime("10/9/2019 9:45:06 PM"),
                     Message = "Test 1",
                     PostId = "test"
                 });
@@ -34,7 +80,7 @@ namespace NerdNews.Tests
                 {
                     Id = 2,
                     Author = "Dan 2",
-                    CommentDateTime = DateTime.Now.AddMinutes(10),
+                    CommentDateTime = Convert.ToDateTime("10/9/2019 9:57:06 PM"),
                     Message = "Test 2",
                     PostId = "test"
                 });
@@ -45,16 +91,9 @@ namespace NerdNews.Tests
             _context.SaveChanges();
 
             _context.Database.EnsureCreated();
-            
 
         }
-        public void Dispose()
-        {
-            _context.Database.EnsureDeleted();
 
-            _context.Dispose();
-        }
 
-        
     }
 }

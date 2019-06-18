@@ -2,9 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using NerdNews.Application;
+using NerdNews.Application.Models;
 using NerdNews.Data;
 using NerdNews.Tests;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Tests
 {
@@ -21,14 +25,32 @@ namespace Tests
         }
 
         [Test]
-        public void CheckCommentCount_Test()
+        [TestCase("test")]
+        public void CheckCommentCount_Test(string postId)
         {     
-            var postId = "test";
-            int count = 2;            
+            int count = 2;       
 
             var getCount = processData.GetCommentCount(postId);
 
             Assert.AreEqual(count, getCount);
+            
+                
         }
+
+        [Test]
+        [TestCase("1")]
+        [TestCase("2")]
+        public void DeleteComment_Test(string id)
+        {
+            var delete = processData.DeleteComment(id);
+
+            Assert.IsTrue(delete);
+          
+        }
+
+       
+
+
+
     }
 }
