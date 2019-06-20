@@ -22,13 +22,7 @@ namespace NerdNews.Tests
             SaveCommentHistoryTestData();
 
         }
-         public void Dispose()
-         {
-            _context.Database.EnsureDeleted();
-
-            _context.Dispose();
-         }
-
+         
         private void SaveCommentHistoryTestData()
         {
             var addCommentHistory = new List<CommentHistory>();
@@ -94,6 +88,12 @@ namespace NerdNews.Tests
 
         }
 
+        public void Dispose()
+        {
+           _context.Database.EnsureDeleted();
+
+           _context.Dispose();
+        }
 
     }
 }
