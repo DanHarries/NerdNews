@@ -33,26 +33,13 @@ namespace NerdNews.Web.ViewComponents
                     Author = comment.Author,
                     Message = comment.Message,
                     CommentDateTime = comment.CommentDateTime,
-                    CommentHistory = CommentHistoryDTOToModel(history)
+                    CommentHistory = history
 
                 });
             }
 
             return View(model);
-        }
+        }       
 
-        public List<CommentHistoryModel> CommentHistoryDTOToModel(List<CommentHistoryDTO> dto)
-        {
-            var commentHistory = new List<CommentHistoryModel>();
-            foreach (var item in dto)
-            {
-                commentHistory.Add(new CommentHistoryModel()
-                {
-                    CommentHistoryDateTime = item.CommentHistoryDateTime
-                });
-            }
-
-            return commentHistory;
-        }
     }
 }
