@@ -1,7 +1,8 @@
 
 # Nerd News 🤓
 
-> Technical news feed with commenting system.
+> Technical news feed with commenting system. 
+> This was a technical test for a role
 ---
 #### Tech Used:
 
